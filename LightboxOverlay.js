@@ -141,14 +141,7 @@ export default class LightboxOverlay extends Component {
         opacity: 1,
       }
     });
-
-    Animated.spring(
-      this.state.openVal,
-      { toValue: 1, ...this.props.springConfig }
-    ).start(() => {
-      this.setState({ isAnimating: false });
-      this.props.didOpen();
-    });
+    this.props.didOpen();
   }
 
   close = () => {
@@ -156,18 +149,7 @@ export default class LightboxOverlay extends Component {
     if(isIOS) {
       StatusBar.setHidden(false, 'fade');
     }
-    this.setState({
-      isAnimating: true,
-    });
-    Animated.spring(
-      this.state.openVal,
-      { toValue: 0, ...this.props.springConfig }
-    ).start(() => {
-      this.setState({
-        isAnimating: false,
-      });
-      this.props.onClose();
-    });
+    this.props.onClose();
   }
 
   componentWillReceiveProps(props) {
