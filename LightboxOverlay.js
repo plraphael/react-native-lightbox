@@ -141,7 +141,14 @@ export default class LightboxOverlay extends Component {
         opacity: 1,
       }
     });
-    this.props.didOpen();
+
+    Animated.spring(
+      this.state.openVal,
+      { toValue: 1, ...this.props.springConfig }
+    ).start(() => {
+      this.setState({ isAnimating: false });
+      this.props.didOpen();
+    });
   }
 
   close = () => {
